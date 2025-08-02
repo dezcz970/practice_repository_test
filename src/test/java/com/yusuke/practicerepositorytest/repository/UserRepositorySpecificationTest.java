@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +35,7 @@ import com.yusuke.practicerepositorytest.specification.UserSpecification;
         "logging.level.org.hibernate.SQL=DEBUG",
         "logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE"
 })
+@Sql("classpath:insert_test_data.sql")
 public class UserRepositorySpecificationTest {
 
     @Autowired
@@ -46,37 +48,37 @@ public class UserRepositorySpecificationTest {
     @Before
     public void setUp() {
         // テストデータの準備
-        testUser1 = User.builder()
-                .name("田中太郎")
-                .email("tanaka@example.com")
-                .age(25)
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        testUser2 = User.builder()
-                .name("佐藤花子")
-                .email("sato@example.com")
-                .age(30)
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        testUser3 = User.builder()
-                .name("田中次郎")
-                .email("tanaka2@example.com")
-                .age(28)
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        // テストデータを保存
-        userRepository.save(testUser1);
-        userRepository.save(testUser2);
-        userRepository.save(testUser3);
+//        testUser1 = User.builder()
+//                .name("田中太郎")
+//                .email("tanaka@example.com")
+//                .age(25)
+//                .createdAt(LocalDateTime.now())
+//                .build();
+//
+//        testUser2 = User.builder()
+//                .name("佐藤花子")
+//                .email("sato@example.com")
+//                .age(30)
+//                .createdAt(LocalDateTime.now())
+//                .build();
+//
+//        testUser3 = User.builder()
+//                .name("田中次郎")
+//                .email("tanaka2@example.com")
+//                .age(28)
+//                .createdAt(LocalDateTime.now())
+//                .build();
+//
+//        // テストデータを保存
+//        userRepository.save(testUser1);
+//        userRepository.save(testUser2);
+//        userRepository.save(testUser3);
     }
 
     @After
     public void tearDown() {
         // テストデータのクリーンアップ
-        userRepository.deleteAll();
+//        userRepository.deleteAll();
     }
 
     @Test
@@ -88,7 +90,7 @@ public class UserRepositorySpecificationTest {
         List<User> users = userRepository.findAll(spec);
 
         // Then
-        assertEquals(2, users.size());
+        assertEquals(3, users.size());
         assertTrue(users.stream().allMatch(user -> user.getAge() > 25));
     }
 
@@ -170,7 +172,7 @@ public class UserRepositorySpecificationTest {
         long count = userRepository.count(spec);
 
         // Then
-        assertEquals(2, count);
+        assertEquals(3, count);
     }
 
     @Test
