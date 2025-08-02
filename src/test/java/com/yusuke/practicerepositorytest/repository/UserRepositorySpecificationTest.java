@@ -11,7 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,7 +23,8 @@ import com.yusuke.practicerepositorytest.entity.User;
 import com.yusuke.practicerepositorytest.specification.UserSpecification;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = TestcontainersConfiguration.class)
+@DataJpaTest
+@Import({ TestcontainersConfiguration.class })
 @Transactional
 @TestPropertySource(properties = {
         "spring.jpa.hibernate.ddl-auto=none",

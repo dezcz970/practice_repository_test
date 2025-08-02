@@ -3,18 +3,11 @@ package com.yusuke.practicerepositorytest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.context.annotation.Import;
 import org.testcontainers.containers.MySQLContainer;
 
 @TestConfiguration
-@TestPropertySource(properties = {
-        "spring.jpa.hibernate.ddl-auto=none",
-        "spring.jpa.show-sql=true",
-        "spring.jpa.properties.hibernate.format_sql=true",
-        "spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect",
-        "logging.level.org.hibernate.SQL=DEBUG",
-        "logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE"
-})
+@Import({ TestSqlExecutor.class })
 public class TestcontainersConfiguration {
 
     @Bean
